@@ -1,10 +1,12 @@
 FROM korekontrol/ubuntu-java-python2
     
-# Allure
-RUN wget https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.0.0/allure-2.0.0.tgz
-RUN unzip allure-commandline.zip -d /allure
-RUN rm allure-commandline.zip
-ENV PATH="/allure/bin:${PATH}"
+COPY allure-2.0.1.tgz /
 
+RUN apt-get update \
+    && apt-get install tar \
+    && tar -xvf allure-2.0.1.tgz \
+    && chmod -R +x /allure-2.0.1/bin
+    
+ENV PATH="/allure-2.0.1/bin:${PATH}"
 
 WORKDIR /
