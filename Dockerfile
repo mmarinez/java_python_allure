@@ -1,21 +1,24 @@
 FROM circleci/python:2.7.14
 
 USER root
-RUN apt-get -y -q update && \
-    apt-get -y -q upgrade && \
-    apt-get -y install default-jre
-RUN apt-get install -y software-properties-common python-software-properties
-RUN apt-get -y -q update && \
-    apt-get -y -q upgrade && \
-    apt-get -y -q install software-properties-common htop && \
-    add-apt-repository ppa:webupd8team/java && \
-    apt-get -y -q update && \
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-    apt-get -y -q install oracle-java8-installer && \
-    update-java-alternatives -s java-8-oracle
+RUN \
+    echo "===> add webupd8 repository..."  && \
+    echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee /etc/apt/sources.list.d/webupd8team-java.list  && \
+    echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list  && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886  && \
+    apt-get update
 
-# Define commonly used JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+
+RUN echo "===> install Java"  && \
+    echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections  && \
+    echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections  && \
+    DEBIAN_FRONTEND=noninteractive  apt-get install -y --force-yes oracle-java8-installer oracle-java8-set-default
+
+
+RUN echo "===> clean up..."  && \
+    rm -rf /var/cache/oracle-jdk8-installer  && \
+    apt-get clean  && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY allure-2.0.1.tgz /
         
