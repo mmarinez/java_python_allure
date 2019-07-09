@@ -2,7 +2,7 @@ FROM korekontrol/ubuntu-java-python2
     
 COPY allure-2.0.1.tgz /
 
-RUN apk add \
+RUN apt-get install \
     build-base \
     jpeg-dev \
     zlib-dev
