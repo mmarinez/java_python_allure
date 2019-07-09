@@ -2,12 +2,12 @@ FROM circleci/python:2.7.14
 
 # Java
 RUN \
-    apk update \
-    && apk upgrade \
-    && apk add --no-cache bash \
-    && apk add --no-cache --virtual=build-dependencies unzip \
-    && apk add --no-cache curl \
-    && apk add --no-cache openjdk8-jre
+    sudo apt-get update \
+    && sudo apt-get upgrade \
+    && sudo apt-get add --no-cache bash \
+    && sudo apt-get add --no-cache --virtual=build-dependencies unzip \
+    && sudo apt-get add --no-cache curl \
+    && sudo apt-get add --no-cache openjdk8-jre
     
 # Allure
 RUN \
