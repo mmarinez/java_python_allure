@@ -1,9 +1,10 @@
 FROM circleci/python:2.7.14
 
 USER root
-RUN apt-get -y install default-jre
+RUN apt-get -y -q update && \
+    apt-get -y -q upgrade && \
+    apt-get -y install default-jre
 RUN apt-get install -y software-properties-common python-software-properties
-
 RUN apt-get -y -q update && \
     apt-get -y -q upgrade && \
     apt-get -y -q install software-properties-common htop && \
