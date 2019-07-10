@@ -2,15 +2,9 @@ FROM circleci/python:2.7.14-jessie
 
 USER root
 
-RUN set -ex && \
-    echo 'deb http://deb.debian.org/debian jessie-backports main' \
-      > /etc/apt/sources.list.d/jessie-backports.list && \
+RUN apt-get -y update && apt-get install -y -t jessie-backports ca-certificates-java \
+&& apt-get -y install openjdk-8-jdk && update-alternatives --config java
 
-    apt update -y && \
-    apt install -t \
-      jessie-backports \
-      openjdk-8-jre-headless \
-      ca-certificates-java -y
 
 COPY allure-2.0.1.tgz /
         
