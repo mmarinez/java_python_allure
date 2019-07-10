@@ -2,9 +2,12 @@ FROM circleci/python:2.7.14-jessie
 
 USER root
 
-RUN apt-get -y update && apt-get install -y -t jessie-backports ca-certificates-java \
-&& apt-get -y install openjdk-8-jdk && update-alternatives --config java
-
+RUN apt-get update && \
+ apt-get -y upgrade && \
+ echo 'deb http://ftp.de.debian.org/debian sid main' >> '/etc/apt/sources.list' && \
+ apt-get -y update && \
+ mkdir -p /usr/share/man/man1 && \
+ apt-get -y install openjdk-12-jre-headless
 
 COPY allure-2.0.1.tgz /
         
