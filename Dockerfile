@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
         libffi-dev libxml2-dev libxslt1-dev \
         libtiff5-dev zlib1g-dev libfreetype6-dev \
         liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev python-tk \
-        build-dep python-imaging libjpeg62
+        python-imaging libjpeg62
         
 COPY allure-2.0.1.tgz /
         
