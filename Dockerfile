@@ -12,8 +12,8 @@ RUN apt-get update \
     libpq-dev \
     make \
     python-pip \
-    python2.7 \
-    python2.7-dev \
+    python3.8 \
+    python3.8-dev \
     ssh \
     && apt-get autoremove \
     && apt-get clean
